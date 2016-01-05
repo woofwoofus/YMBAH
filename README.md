@@ -1,4 +1,4 @@
-# PROJECT: YMBA
+# PROJECT: YMBAH
 ##The Android 'Mini-Game' Game by Jan Geestman 10375406
 
 You Must Build A House (YMBAH) is a game that features a variety of different mini games. The overall objective is to build a house. This is accomplished by several mini-games which simulate different construction steps (Chopping trees, Building a frame, Mining for materials, etc.). These mini-games make use of touch-screen finger tracking where the users have to perform tasks with varying levels of difficulty and precision. 
