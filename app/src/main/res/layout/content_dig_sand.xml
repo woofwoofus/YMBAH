@@ -4,25 +4,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/dig_sand"
-    tools:context="nl.mprog.ymbah.MainActivity">
+    tools:context=".DigSandActivity">
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Resources_Bar">
 
+    </LinearLayout>
         <ImageView
             android:contentDescription="Sand Image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/sand_object"
             android:id="@+id/Sand_Object"
-            android:layout_marginBottom="122dp"
+            android:layout_marginBottom="110dp"
             android:layout_alignParentBottom="true"
-            android:layout_toEndOf="@+id/Sand_Plus" />
+            android:layout_centerHorizontal="true"
+            android:onClick="playAnim"/>
 
         <ImageView
             android:contentDescription="SandPlus Image"
             android:layout_width="35dp"
             android:layout_height="25dp"
             android:background="@drawable/sand_plus"
-            android:alpha="100"
+            android:alpha="0"
             android:id="@+id/Sand_Plus"
             android:layout_marginTop="57dp"
             android:layout_alignParentTop="true"

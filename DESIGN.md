@@ -2,7 +2,9 @@
 
 ##Classes and Methods
 
-Bla | Bla
---- | ---
-hoi | hoi nog een keer
-haha deze is langer | deze is kort
+* Game.class
+
+Public Method | Return Type
+------------- | -----------
+Get(Resource) | Int
+Set(Resource) | Void
