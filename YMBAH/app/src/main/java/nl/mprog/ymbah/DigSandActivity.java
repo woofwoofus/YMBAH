@@ -2,6 +2,7 @@ package nl.mprog.ymbah;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.MotionEventCompat;
@@ -62,4 +63,5 @@ public class DigSandActivity extends Activity {
         Sand_Plus.animate().translationY(-10).alpha(0).setDuration(2000);
 
     }
+
 }

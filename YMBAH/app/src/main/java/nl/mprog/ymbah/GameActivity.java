@@ -3,12 +3,14 @@ package nl.mprog.ymbah;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -27,10 +29,10 @@ public class GameActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
+        setContentView(R.layout.activity_game_proto);
 
         Game game = new Game();
-        addDrawerItems();
+//        addDrawerItems();
     }
 
     private void addDrawerItems() {
@@ -72,4 +74,11 @@ public class GameActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void StartDigSand(View view) {
+        Intent DigSandIntent = new Intent(this, DigSandActivity.class);
+        startActivity(DigSandIntent);
+    }
+    public void BuildHouse(View view) {
+        findViewById(R.id.GameBackground).setBackgroundResource(R.drawable.finished);
+    }
 }

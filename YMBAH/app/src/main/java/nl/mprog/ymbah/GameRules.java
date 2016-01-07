@@ -7,7 +7,7 @@ import java.util.HashMap;
  */
 public class GameRules {
 
-    public static HashMap<String,Integer> requiredResources;
+    public static HashMap<String,Integer> requiredResources = new HashMap<>();
 
     GameRules(int difficulty) {
         fillMap();
