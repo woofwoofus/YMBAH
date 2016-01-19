@@ -15,6 +15,7 @@ import android.view.VelocityTracker;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class GameActivity extends Activity {
 
@@ -28,6 +29,7 @@ public class GameActivity extends Activity {
     FragmentManager gameFragmentManager = getFragmentManager();
     FragmentTransaction gameFragmentTransaction;
 
+    Game game;
     private SharedPreferences sharedPrefs;
 
 
@@ -40,7 +42,7 @@ public class GameActivity extends Activity {
         sharedPrefs = getSharedPreferences("userData", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefs.edit();
 
-        Game game = new Game(sharedPrefs.getString("username", "Piet"));
+        game = new Game(sharedPrefs.getString("username", "Piet"), GameActivity.this);
 
 //        addDrawerItems();
     }
@@ -89,7 +91,13 @@ public class GameActivity extends Activity {
         startActivity(DigSandIntent);
     }
     public void BuildHouse(View view) {
-        findViewById(R.id.GameBackground).setBackgroundResource(R.drawable.finished);
+        if (game.checkFinished()){
+            System.out.println("Sand collected: " + sharedPrefs.getInt("Sand", -1));
+            findViewById(R.id.GameBackground).setBackgroundResource(R.drawable.finished);
+        } else {
+            System.out.println("Sand collected: " + sharedPrefs.getInt("Sand", -1));
+            Toast.makeText(this, "Not enough resources collected", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void gOpenOptions(View view) {

@@ -22,4 +22,4 @@ Reacquainted myself with the app. I had mostly forgotten where I stopped before 
 
 #Day 7
 
-Worked on the communication between activities. Most of it is stored in the SharedPreferences now. Also wrote the game logic. Had to refresh my memory about data storage types.
+Worked on the communication between activities. Most of it is stored in the SharedPreferences now. Also wrote the game logic. Had to refresh my memory about data storage types. Got the game semi-working. Rudimentary game logic works but remembers too much data between sessions. Put it on my to do list for tomorrow. 

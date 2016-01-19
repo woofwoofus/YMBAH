@@ -27,8 +27,8 @@ public class GameRules {
         requiredResources.put("Bricks", 50);
     }
 
-    public int getLimit(String rName) {
-        return  requiredResources.get(rName);
+    public static int getLimit(String rName) {
+        return requiredResources.get(rName);
     }
 
 }

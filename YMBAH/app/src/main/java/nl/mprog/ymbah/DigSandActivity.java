@@ -3,6 +3,7 @@ package nl.mprog.ymbah;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.MotionEventCompat;
@@ -24,11 +25,14 @@ import android.widget.ListView;
 import java.util.Random;
 
 public class DigSandActivity extends Activity {
+    private SharedPreferences sharedPrefs;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dig_sand);
+
     }
 
     public static float randInt(int min, int max){
@@ -61,6 +65,13 @@ public class DigSandActivity extends Activity {
 
         Sand_Plus.setImageAlpha(1);
         Sand_Plus.animate().translationY(-10).alpha(0).setDuration(2000);
+
+        sharedPrefs = getSharedPreferences("userData", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+        editor.putInt("Sand", sharedPrefs.getInt("Sand", 0) + 1);
+        editor.commit();
+        System.out.println("Sand collected: " + sharedPrefs.getInt("Sand", -1));
+
 
     }
 
