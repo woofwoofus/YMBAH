@@ -13,28 +13,28 @@
         android:id="@+id/Resources_Bar">
 
     </LinearLayout>
-        <ImageView
-            android:contentDescription="Sand Image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/sand_object"
-            android:id="@+id/Sand_Object"
-            android:layout_marginBottom="110dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:onClick="playAnim"/>
+    <ImageView
+        android:contentDescription="Sand Image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sand_object"
+        android:id="@+id/Sand_Object"
+        android:layout_marginBottom="110dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="playAnim"/>
 
-        <ImageView
-            android:contentDescription="SandPlus Image"
-            android:layout_width="35dp"
-            android:layout_height="25dp"
-            android:background="@drawable/sand_plus"
-            android:alpha="0"
-            android:id="@+id/Sand_Plus"
-            android:layout_marginTop="57dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="76dp" />
+    <ImageView
+        android:contentDescription="SandPlus Image"
+        android:layout_width="35dp"
+        android:layout_height="25dp"
+        android:background="@drawable/sand_plus"
+        android:alpha="0"
+        android:id="@+id/Sand_Plus"
+        android:layout_marginTop="57dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="76dp" />
 
 
 </RelativeLayout>

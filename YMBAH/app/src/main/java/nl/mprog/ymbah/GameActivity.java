@@ -1,9 +1,11 @@
 package nl.mprog.ymbah;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -21,8 +23,12 @@ public class GameActivity extends Activity {
     private ListView mDrawerList;
     private VelocityTracker mVelocityTracker = null;
 
+//    FragmentManager gameFragmentManager = getFragmentManager();
+//    FragmentTransaction gameFragmentTransaction;
     FragmentManager gameFragmentManager = getFragmentManager();
     FragmentTransaction gameFragmentTransaction;
+
+    private SharedPreferences sharedPrefs;
 
 
 
@@ -31,7 +37,11 @@ public class GameActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_proto);
 
-        Game game = new Game();
+        sharedPrefs = getSharedPreferences("userData", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+
+        Game game = new Game(sharedPrefs.getString("username", "Piet"));
+
 //        addDrawerItems();
     }
 
@@ -80,5 +90,11 @@ public class GameActivity extends Activity {
     }
     public void BuildHouse(View view) {
         findViewById(R.id.GameBackground).setBackgroundResource(R.drawable.finished);
+    }
+
+    public void gOpenOptions(View view) {
+        gameFragmentTransaction = gameFragmentManager.beginTransaction();
+        DialogFragment optionsFragment = OptionsMenuFragment.newInstance();
+        optionsFragment.show(gameFragmentTransaction, "Options");
     }
 }

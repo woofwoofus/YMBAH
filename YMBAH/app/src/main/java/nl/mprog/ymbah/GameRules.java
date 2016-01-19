@@ -20,8 +20,15 @@ public class GameRules {
 
     private void fillMap(){
         requiredResources.put("Sand", 2);
+        requiredResources.put("Glass", 5);
         requiredResources.put("Wood", 5);
         requiredResources.put("Planks", 10);
+        requiredResources.put("Clay", 0);
+        requiredResources.put("Bricks", 50);
+    }
+
+    public int getLimit(String rName) {
+        return  requiredResources.get(rName);
     }
 
 }

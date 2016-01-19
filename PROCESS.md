@@ -13,3 +13,13 @@ Did a lot of restructuring work again. Got a better grasp on Fragments and their
 #Day 5
 
 Gave presentation explaining my app to the other students in the team.
+
+##~~SICKNESS INTERLUDE~~
+
+#Day 6
+
+Reacquainted myself with the app. I had mostly forgotten where I stopped before I got the flu. Ditched the navigation drawer idea. It's just not practical for the use I have in mind for it. It'll just be boring buttons for now. Fixed most of the main menu today. Managed to get the Options Menu working as a fragment. It's still empty for now but at least it works and I can call on it within other activities easily. Set up a lot of front-end stuff for dealing with eventual user account and loading of old games. Nothing really functional yet but the framework is there.
+
+#Day 7
+
+Worked on the communication between activities. Most of it is stored in the SharedPreferences now. Also wrote the game logic. Had to refresh my memory about data storage types.
