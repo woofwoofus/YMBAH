@@ -57,10 +57,11 @@ public class GameActivity extends Activity {
             final Button digSandButton = (Button) findViewById(R.id.DigSandButton);
 
             if (SandCD) {
+                System.out.println("SANDCD");
                 new CountDownTimer(30000, 1000) {
-                    public void onTick(long millisUntilFinished) {
+                    public void onTick(long m) {
                         digSandButton.setClickable(false);
-                        sandTimer.setText("" + millisUntilFinished / 1000);
+                        sandTimer.setText("" + m/1000);
                     }
 
                     public void onFinish() {
@@ -68,6 +69,17 @@ public class GameActivity extends Activity {
                         sandTimer.setText("");
                     }
                 };
+//                new CountDownTimer(30000, 1000) {
+//                    public void onTick(long millisUntilFinished) {
+//                        digSandButton.setClickable(false);
+//                        sandTimer.setText("" + millisUntilFinished / 1000);
+//                    }
+//
+//                    public void onFinish() {
+//                        digSandButton.setClickable(true);
+//                        sandTimer.setText("");
+//                    }
+//                };
             }
         }
 //        addDrawerItems();
