@@ -7,6 +7,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
@@ -14,7 +15,9 @@ import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class GameActivity extends Activity {
@@ -23,6 +26,8 @@ public class GameActivity extends Activity {
     private ArrayAdapter<String> mAdapter;
     private ListView mDrawerList;
     private VelocityTracker mVelocityTracker = null;
+
+    private boolean SandCD = false;
 
 //    FragmentManager gameFragmentManager = getFragmentManager();
 //    FragmentTransaction gameFragmentTransaction;
@@ -42,8 +47,29 @@ public class GameActivity extends Activity {
         sharedPrefs = getSharedPreferences("userData", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefs.edit();
 
-        game = new Game(sharedPrefs.getString("username", "Piet"), GameActivity.this);
+        game = new Game(sharedPrefs.getString("username", "GenericUser"), GameActivity.this);
 
+        if (getIntent().hasExtra("SandCD")) {
+            System.out.println("IK BEN OP COOLDOWN");
+            Bundle extras = getIntent().getExtras();
+            SandCD = extras.getBoolean("SandCD", false);
+            final TextView sandTimer = (TextView) findViewById(R.id.DigSandTimer);
+            final Button digSandButton = (Button) findViewById(R.id.DigSandButton);
+
+            if (SandCD) {
+                new CountDownTimer(30000, 1000) {
+                    public void onTick(long millisUntilFinished) {
+                        digSandButton.setClickable(false);
+                        sandTimer.setText("" + millisUntilFinished / 1000);
+                    }
+
+                    public void onFinish() {
+                        digSandButton.setClickable(true);
+                        sandTimer.setText("");
+                    }
+                };
+            }
+        }
 //        addDrawerItems();
     }
 

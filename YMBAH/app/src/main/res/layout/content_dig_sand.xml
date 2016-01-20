@@ -36,5 +36,14 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="76dp" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:id="@+id/BackToHouseButton"
+        android:onClick="BackToHouse"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"/>
+
 
 </RelativeLayout>

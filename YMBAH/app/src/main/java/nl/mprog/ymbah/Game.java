@@ -12,24 +12,26 @@ public class Game {
 
     private SharedPreferences sharedPrefs;
     GameRules mRules;
+    private Context gContext;
 
     public static HashMap<String,Integer> collectedResources = new HashMap<>();
 
     Game(String username, Context context){
+        gContext = context;
         System.out.println("current usename: " + username);
         mRules = new GameRules(1);
-        sharedPrefs = context.getSharedPreferences("userData", context.MODE_PRIVATE);
+        sharedPrefs = context.getSharedPreferences("userData", gContext.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefs.edit();
         fillMap();
         for (String key:collectedResources.keySet()) {
             editor.putInt(key,collectedResources.get(key));
         }
+        editor.putBoolean("GameInProgress", true);
         editor.commit();
     }
 
-    // ALTIJD TRUE OP HET MOMENT TOT IK EEN ELEGANTERE OPLOSSING KAN BEDENKEN
     private void fillMap() {
-        if (sharedPrefs.getBoolean("gameInProgress", true)) {
+        if (sharedPrefs.getBoolean("GameInProgress", false)) {
             collectedResources.put("Sand", sharedPrefs.getInt("Sand", 0));
             collectedResources.put("Glass", sharedPrefs.getInt("Sand", 0));
             collectedResources.put("Wood", sharedPrefs.getInt("Sand", 0));
@@ -55,6 +57,13 @@ public class Game {
     }
 
     public boolean checkFinished() {
-        return collectedResources.get("Sand") == GameRules.getLimit("Sand");
+        if (collectedResources.get("Sand") >= GameRules.getLimit("Sand")){
+
+            sharedPrefs = gContext.getSharedPreferences("userData", gContext.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPrefs.edit();
+            editor.putBoolean("GameInProgress", false);
+            return true;
+        }
+        return false;
     }
 }

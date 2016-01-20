@@ -46,6 +46,7 @@
             android:layout_height="wrap_content"
             android:text="Log In"
             android:id="@+id/LogInButton"
+            android:onClick="LogIn"
             android:layout_toRightOf="@id/LoadGameButton"
             android:layout_below="@id/StartGameButton"/>
 

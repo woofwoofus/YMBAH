@@ -17,6 +17,8 @@ public class MainMenuActivity extends Activity {
     FragmentManager mainMenuFragmentManager = getFragmentManager();
     FragmentTransaction mainMenuFragmentTransaction;
 
+    private boolean LoggedIn = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,11 +30,6 @@ public class MainMenuActivity extends Activity {
 
     public void StartGame(View view) {
         Intent StartGameIntent = new Intent(this, GameActivity.class);
-
-        sharedPrefs = getSharedPreferences("userData", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPrefs.edit();
-        editor.putString("username", "Henk");
-        editor.commit();
 
         startActivity(StartGameIntent);
     }
@@ -51,5 +48,11 @@ public class MainMenuActivity extends Activity {
         mainMenuFragmentTransaction = mainMenuFragmentManager.beginTransaction();
         DialogFragment optionsFragment = OptionsMenuFragment.newInstance();
         optionsFragment.show(mainMenuFragmentTransaction, "Options");
+    }
+
+    public void LogIn(View view) {
+        mainMenuFragmentTransaction = mainMenuFragmentManager.beginTransaction();
+        DialogFragment logInFragment = LogInFragment.newInstance();
+        logInFragment.show(mainMenuFragmentTransaction, "LogIn");
     }
 }

@@ -26,6 +26,8 @@ import java.util.Random;
 
 public class DigSandActivity extends Activity {
     private SharedPreferences sharedPrefs;
+    private boolean SandCD = false;
+    private int digCount = 0;
 
 
     @Override
@@ -45,34 +47,49 @@ public class DigSandActivity extends Activity {
         return randomFloat * range - Math.abs(min);
     }
 
+
+
     public void playAnim(View view) throws InterruptedException {
-        final ImageView Sand = (ImageView) findViewById(R.id.Sand_Object);
-        Sand.setClickable(false);
+
+        final ImageView sand = (ImageView) findViewById(R.id.Sand_Object);
+        sand.setClickable(false);
 
         float X = randInt(-500, 500);
         float Y = randInt(300, 800);
         System.out.println("X = " + X + "    Y = " + Y);
 
-        Sand.animate().rotationBy(1800).alpha(0).translationX(X).translationY(-Y).scaleX(0)
-                .scaleY(0).setDuration(2000).withEndAction(new Runnable() {
+        Runnable endAction = new Runnable() {
             public void run() {
-                Sand.animate().x(0).y(0).alpha(1).setDuration(0);
-                Sand.setClickable(true);
+                if (digCount <= 5) {
+                    sand.animate().alpha(1).scaleX(1).scaleY(1).setDuration(0);
+                    sand.setClickable(true);
+                }
             }
-        });
+        };
 
-        ImageView Sand_Plus = (ImageView) findViewById(R.id.Sand_Plus);
 
-        Sand_Plus.setImageAlpha(1);
-        Sand_Plus.animate().translationY(-10).alpha(0).setDuration(2000);
+        sand.animate().rotationBy(1800).alpha(0).translationX(X).translationY(-Y).scaleX(0)
+                .scaleY(0).setDuration(2000).withEndAction(endAction);
+//
+//        ImageView Sand_Plus = (ImageView) findViewById(R.id.Sand_Plus);
+//
+//        Sand_Plus.setImageAlpha(1);
+//        Sand_Plus.animate().translationY(-10).alpha(0).setDuration(2000);
 
         sharedPrefs = getSharedPreferences("userData", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefs.edit();
         editor.putInt("Sand", sharedPrefs.getInt("Sand", 0) + 1);
         editor.commit();
         System.out.println("Sand collected: " + sharedPrefs.getInt("Sand", -1));
-
-
+        digCount++;
+        if (digCount > 5) {
+            SandCD = true;
+        }
     }
 
+    public void BackToHouse(View view) {
+        Intent GameScreenIntent = new Intent(this, GameActivity.class);
+        GameScreenIntent.putExtra("SandCD", SandCD);
+        startActivity(GameScreenIntent);
+    }
 }
