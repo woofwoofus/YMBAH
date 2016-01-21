@@ -18,7 +18,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/DigSandTimer"
-        android:layout_toEndOf="@+id/DigSandButton"/>
+        android:layout_alignBottom="@+id/DigSandButton"
+        android:layout_toEndOf="@+id/DigSandButton" />
 
     <Button
         android:layout_width="wrap_content"
