@@ -124,15 +124,17 @@ public class MainMenuActivity extends Activity {
 
     private void createPlayerSpinners() {
         playerSpinnerAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, playerList);
-        playerSpinner.setAdapter(playerSpinnerAdapter);
-
-//        spinnerList.setSelection(0, false);
-    }
+        playerSpinner.setAdapter(playerSpinnerAdapter);}
 
     public void StartGame(View view) {
         Intent StartGameIntent = new Intent(this, GameActivity.class);
-
-        startActivity(StartGameIntent);
+        final String playerName = ((Spinner)findViewById(R.id.PlayerSpinner)).getSelectedItem().toString();
+        if (!playerName.equals("Player")){
+            StartGameIntent.putExtra("PlayerName", playerName);
+            startActivity(StartGameIntent);
+        } else {
+            Toast.makeText(this, "Please enter a player name", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void LoadGame(View view) {
@@ -149,11 +151,5 @@ public class MainMenuActivity extends Activity {
         mainMenuFragmentTransaction = mainMenuFragmentManager.beginTransaction();
         DialogFragment optionsFragment = OptionsMenuFragment.newInstance();
         optionsFragment.show(mainMenuFragmentTransaction, "Options");
-    }
-
-    public void LogIn(View view) {
-        mainMenuFragmentTransaction = mainMenuFragmentManager.beginTransaction();
-        DialogFragment logInFragment = LogInFragment.newInstance();
-        logInFragment.show(mainMenuFragmentTransaction, "LogIn");
     }
 }

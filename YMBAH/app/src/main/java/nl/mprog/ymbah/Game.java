@@ -69,4 +69,8 @@ public class Game{
         }
         return false;
     }
+
+    public void saveGame() {
+        System.out.println("SAVING GAME");
+    }
 }

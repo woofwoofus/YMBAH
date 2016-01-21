@@ -23,11 +23,6 @@ import android.widget.Toast;
 
 public class GameActivity extends Activity {
 
-    private DrawerLayout mDrawerLayout;
-    private ArrayAdapter<String> mAdapter;
-    private ListView mDrawerList;
-    private VelocityTracker mVelocityTracker = null;
-
     private boolean SandCD = false;
 
     FragmentManager gameFragmentManager = getFragmentManager();
@@ -47,6 +42,7 @@ public class GameActivity extends Activity {
         SharedPreferences.Editor editor = sharedPrefs.edit();
 
         game = new Game(sharedPrefs.getString("username", "GenericUser"), GameActivity.this);
+        System.out.println("Creating new game");
 
         if (getIntent().hasExtra("SandCD")) {
             System.out.println("IK BEN OP COOLDOWN");
@@ -102,7 +98,7 @@ public class GameActivity extends Activity {
 
     public void StartDigSand(View view) {
         Intent DigSandIntent = new Intent(this, DigSandActivity.class);
-        startActivity(DigSandIntent);
+        startActivityForResult(DigSandIntent,1);
     }
     public void BuildHouse(View view) {
         if (game.checkFinished()){
@@ -118,5 +114,11 @@ public class GameActivity extends Activity {
         gameFragmentTransaction = gameFragmentManager.beginTransaction();
         DialogFragment optionsFragment = OptionsMenuFragment.newInstance();
         optionsFragment.show(gameFragmentTransaction, "Options");
+    }
+
+    @Override
+    public void onDestroy() {
+        game.saveGame();
+        super.onDestroy();
     }
 }
