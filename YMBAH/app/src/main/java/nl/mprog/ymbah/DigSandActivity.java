@@ -21,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.Random;
 
@@ -28,8 +29,6 @@ public class DigSandActivity extends Activity {
     private SharedPreferences sharedPrefs;
     private boolean SandCD = false;
     private int digCount = 0;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +59,7 @@ public class DigSandActivity extends Activity {
 
         Runnable endAction = new Runnable() {
             public void run() {
-                if (digCount <= 5) {
+                if (!SandCD) {
                     sand.animate().alpha(1).scaleX(1).scaleY(1).setDuration(0);
                     sand.setClickable(true);
                 }
@@ -70,11 +69,6 @@ public class DigSandActivity extends Activity {
 
         sand.animate().rotationBy(1800).alpha(0).translationX(X).translationY(-Y).scaleX(0)
                 .scaleY(0).setDuration(2000).withEndAction(endAction);
-//
-//        ImageView Sand_Plus = (ImageView) findViewById(R.id.Sand_Plus);
-//
-//        Sand_Plus.setImageAlpha(1);
-//        Sand_Plus.animate().translationY(-10).alpha(0).setDuration(2000);
 
         sharedPrefs = getSharedPreferences("userData", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefs.edit();
@@ -82,14 +76,17 @@ public class DigSandActivity extends Activity {
         editor.commit();
         System.out.println("Sand collected: " + sharedPrefs.getInt("Sand", -1));
         digCount++;
-        if (digCount > 5) {
+        TextView v = (TextView)findViewById(R.id.SandCollectedTextView);
+        v.setText(digCount);
+        if (digCount > 3) {
             SandCD = true;
         }
     }
 
     public void BackToHouse(View view) {
         Intent GameScreenIntent = new Intent(this, GameActivity.class);
-        GameScreenIntent.putExtra("SandCD", SandCD);
+        GameScreenIntent.putExtra("SandCD", true);
+        GameScreenIntent.putExtra("GameInProgress", true);
         startActivity(GameScreenIntent);
     }
 }

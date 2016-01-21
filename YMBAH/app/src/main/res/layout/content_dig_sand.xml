@@ -12,6 +12,15 @@
         android:layout_height="wrap_content"
         android:id="@+id/Resources_Bar">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sand Collected: "/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/SandCollectedTextView"/>
+
     </LinearLayout>
     <ImageView
         android:contentDescription="Sand Image"

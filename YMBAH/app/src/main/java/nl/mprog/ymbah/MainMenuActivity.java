@@ -129,8 +129,9 @@ public class MainMenuActivity extends Activity {
     public void StartGame(View view) {
         Intent StartGameIntent = new Intent(this, GameActivity.class);
         final String playerName = ((Spinner)findViewById(R.id.PlayerSpinner)).getSelectedItem().toString();
-        if (!playerName.equals("Player")){
+        if (!playerName.equals("Player") || !playerName.equals("Create New Player")){
             StartGameIntent.putExtra("PlayerName", playerName);
+            StartGameIntent.putExtra("GameMethod", "NewGame");
             startActivity(StartGameIntent);
         } else {
             Toast.makeText(this, "Please enter a player name", Toast.LENGTH_SHORT).show();
@@ -138,12 +139,13 @@ public class MainMenuActivity extends Activity {
     }
 
     public void LoadGame(View view) {
-        Intent GameScreenIntent = new Intent(this, GameActivity.class);
+        Intent LoadGameIntent = new Intent(this, GameActivity.class);
         if (!(sharedPrefs.getBoolean("gameInProgress",false))){
             Toast.makeText(this, "No saved game found", Toast.LENGTH_SHORT).show();
         } else {
-            GameScreenIntent.putExtra("gameInProgress", true);
-            startActivity(GameScreenIntent);
+            LoadGameIntent.putExtra("gameInProgress", true);
+            LoadGameIntent.putExtra("GameMethod", "LoadGame");
+            startActivity(LoadGameIntent);
         }
     }
 

@@ -1,6 +1,7 @@
 package nl.mprog.ymbah;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 import java.io.Serializable;
@@ -9,15 +10,13 @@ import java.util.HashMap;
 /**
  * Created by Jan Geestman 10375406.
  */
-public class Game{
+public class Game implements Serializable{
 
     private SharedPreferences sharedPrefs;
     GameRules mRules;
     private Context gContext;
 
     public static HashMap<String,Integer> collectedResources = new HashMap<>();
-
-    public static boolean SandCD = false;
 
     Game(String username, Context context){
         gContext = context;

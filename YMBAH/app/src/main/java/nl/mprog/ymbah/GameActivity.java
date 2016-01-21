@@ -10,14 +10,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.view.MotionEventCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 import android.view.MotionEvent;
-import android.view.VelocityTracker;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +37,12 @@ public class GameActivity extends Activity {
         sharedPrefs = getSharedPreferences("userData", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefs.edit();
 
-        game = new Game(sharedPrefs.getString("username", "GenericUser"), GameActivity.this);
+        Intent intent = getIntent();
+        if (intent.getBooleanExtra("GameInProgress", false)){
+            game = new Game(intent.getStringExtra("PlayerName"), GameActivity.this);
+        } else {
+            game = (Game) intent.getSerializableExtra("Game");
+        }
         System.out.println("Creating new game");
 
         if (getIntent().hasExtra("SandCD")) {
@@ -98,14 +99,14 @@ public class GameActivity extends Activity {
 
     public void StartDigSand(View view) {
         Intent DigSandIntent = new Intent(this, DigSandActivity.class);
-        startActivityForResult(DigSandIntent,1);
+        startActivityForResult(DigSandIntent, 1);
     }
     public void BuildHouse(View view) {
         if (game.checkFinished()){
-            System.out.println("Sand collected: " + sharedPrefs.getInt("Sand", -1));
+            System.out.println("Sand collected: " + game.getResource("Sand"));
             findViewById(R.id.GameBackground).setBackgroundResource(R.drawable.finished);
         } else {
-            System.out.println("Sand collected: " + sharedPrefs.getInt("Sand", -1));
+            System.out.println("Sand collected: " + game.getResource("Sand"));
             Toast.makeText(this, "Not enough resources collected", Toast.LENGTH_SHORT).show();
         }
     }
