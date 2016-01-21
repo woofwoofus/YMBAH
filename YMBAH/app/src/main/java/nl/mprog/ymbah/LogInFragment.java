@@ -23,11 +23,6 @@ public class LogInFragment extends DialogFragment{
 
     static LogInFragment newInstance(){
         LogInFragment lFrag = new LogInFragment();
-
-//        Bundle args = new Bundle();
-//        args.putInt("num", num);
-//        oFrag.setArguments(args);
-
         return  lFrag;
     }
 
@@ -59,5 +54,4 @@ public class LogInFragment extends DialogFragment{
     public void onStop() {
         super.onStop();
     }
-
 }

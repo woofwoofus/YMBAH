@@ -30,11 +30,11 @@ public class DigSandActivity extends Activity {
     private int digCount = 0;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dig_sand);
-
     }
 
     public static float randInt(int min, int max){

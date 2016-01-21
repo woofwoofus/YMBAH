@@ -6,6 +6,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.view.MotionEventCompat;
@@ -29,8 +30,6 @@ public class GameActivity extends Activity {
 
     private boolean SandCD = false;
 
-//    FragmentManager gameFragmentManager = getFragmentManager();
-//    FragmentTransaction gameFragmentTransaction;
     FragmentManager gameFragmentManager = getFragmentManager();
     FragmentTransaction gameFragmentTransaction;
 
@@ -57,45 +56,22 @@ public class GameActivity extends Activity {
             final Button digSandButton = (Button) findViewById(R.id.DigSandButton);
 
             if (SandCD) {
+                digSandButton.setClickable(false);
+                sandTimer.setBackgroundColor(Color.RED);
                 System.out.println("SANDCD");
-                new CountDownTimer(30000, 1000) {
+                new CountDownTimer(10000, 1000) {
                     public void onTick(long m) {
-                        digSandButton.setClickable(false);
                         sandTimer.setText("" + m/1000);
                     }
 
                     public void onFinish() {
                         digSandButton.setClickable(true);
+                        sandTimer.setBackgroundColor(Color.TRANSPARENT);
                         sandTimer.setText("");
                     }
-                };
-//                new CountDownTimer(30000, 1000) {
-//                    public void onTick(long millisUntilFinished) {
-//                        digSandButton.setClickable(false);
-//                        sandTimer.setText("" + millisUntilFinished / 1000);
-//                    }
-//
-//                    public void onFinish() {
-//                        digSandButton.setClickable(true);
-//                        sandTimer.setText("");
-//                    }
-//                };
+                }.start();
             }
         }
-//        addDrawerItems();
-    }
-
-    private void addDrawerItems() {
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.navList);
-        String[] activityArray = {"House", "Dig Sand", "Chop Wood", "Saw Planks"};
-        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, activityArray);
-        mDrawerList.setAdapter(mAdapter);
-
-    }
-
-    public void selectItem(int position) {
-
     }
 
     @Override

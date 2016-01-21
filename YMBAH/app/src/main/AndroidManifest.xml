@@ -16,6 +16,10 @@
             android:name=".GameActivity"
             android:label="@string/title_activity_game"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".NewPlayerPop"
+            android:label="NewPlayerPopActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".MainMenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
