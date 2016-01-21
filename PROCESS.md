@@ -22,4 +22,8 @@ Reacquainted myself with the app. I had mostly forgotten where I stopped before 
 
 #Day 7
 
-Worked on the communication between activities. Most of it is stored in the SharedPreferences now. Also wrote the game logic. Had to refresh my memory about data storage types. Got the game semi-working. Rudimentary game logic works but remembers too much data between sessions. Put it on my to do list for tomorrow. 
+Worked on the communication between activities. Most of it is stored in the SharedPreferences now. Also wrote the game logic. Had to refresh my memory about data storage types. Got the game semi-working. Rudimentary game logic works but remembers too much data between sessions. Put it on my to do list for tomorrow. Didn't feel to well so I went home early and did some work from there.
+
+#Day 8
+
+User can now enter a username. Not yet linked to saved game functionality but that will have to wait for now. Noticed a bug with the DigSand minigame that I needed to fix where the sand flew off screen. Back to working order now.
