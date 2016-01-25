@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -20,7 +21,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Scanner;
 
 public class MainMenuActivity extends Activity {
@@ -31,8 +31,7 @@ public class MainMenuActivity extends Activity {
     private static ArrayList<String> playerList = new ArrayList<>();
     ArrayAdapter<String> playerSpinnerAdapter;
     private Spinner playerSpinner;
-
-    private boolean LoggedIn = false;
+    private NumberPicker difficultyNumberPicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +42,19 @@ public class MainMenuActivity extends Activity {
         SharedPreferences.Editor editor = sharedPrefs.edit();
 
         playerSpinner = (Spinner) findViewById(R.id.PlayerSpinner);
+
+        createDifficultyNumberPicker();
         createPlayerList();
         createPlayerSpinners();
         createSpinnerListeners();
     }
 
+    private void createDifficultyNumberPicker() {
+        difficultyNumberPicker = (NumberPicker)findViewById(R.id.DifficultyNumberPicker);
+        difficultyNumberPicker.setMaxValue(3);
+        difficultyNumberPicker.setMinValue(1);
+
+    }
     private void createPlayerList() {
         playerList.add("Player"); // Placeholder name for when no name is selected yet.
 
@@ -127,11 +134,16 @@ public class MainMenuActivity extends Activity {
         playerSpinner.setAdapter(playerSpinnerAdapter);}
 
     public void StartGame(View view) {
+        sharedPrefs = getSharedPreferences("userData", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+        editor.clear();
+        editor.commit();
         Intent StartGameIntent = new Intent(this, GameActivity.class);
         final String playerName = ((Spinner)findViewById(R.id.PlayerSpinner)).getSelectedItem().toString();
         if (!playerName.equals("Player") || !playerName.equals("Create New Player")){
             StartGameIntent.putExtra("PlayerName", playerName);
-            StartGameIntent.putExtra("GameMethod", "NewGame");
+            StartGameIntent.putExtra("CallMethod", "NewGame");
+            StartGameIntent.putExtra("Difficulty", difficultyNumberPicker.getValue());
             startActivity(StartGameIntent);
         } else {
             Toast.makeText(this, "Please enter a player name", Toast.LENGTH_SHORT).show();
@@ -144,7 +156,7 @@ public class MainMenuActivity extends Activity {
             Toast.makeText(this, "No saved game found", Toast.LENGTH_SHORT).show();
         } else {
             LoadGameIntent.putExtra("gameInProgress", true);
-            LoadGameIntent.putExtra("GameMethod", "LoadGame");
+            LoadGameIntent.putExtra("CallMethod", "LoadGame");
             startActivity(LoadGameIntent);
         }
     }

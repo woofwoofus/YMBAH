@@ -5,8 +5,7 @@ import java.util.HashMap;
 /**
  * Created by Jan Geestman 10375406.
  */
-public class GameRules {
-
+public class GameRules{
     public static HashMap<String,Integer> requiredResources = new HashMap<>();
 
     GameRules(int difficulty) {
@@ -19,12 +18,12 @@ public class GameRules {
     }
 
     private void fillMap(){
-        requiredResources.put("Sand", 2);
-        requiredResources.put("Glass", 5);
-        requiredResources.put("Wood", 5);
-        requiredResources.put("Planks", 10);
+        requiredResources.put("Sand", 3);
+        requiredResources.put("Glass", 0);
+        requiredResources.put("Wood", 0);
+        requiredResources.put("Planks", 0);
         requiredResources.put("Clay", 0);
-        requiredResources.put("Bricks", 50);
+        requiredResources.put("Bricks", 0);
     }
 
     public static int getLimit(String rName) {

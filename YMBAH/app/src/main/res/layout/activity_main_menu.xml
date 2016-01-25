@@ -37,11 +37,18 @@
             android:id="@+id/StartGameButton"
             android:layout_centerHorizontal="true"/>
 
+        <NumberPicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/DifficultyNumberPicker"
+            android:layout_toEndOf="@+id/StartGameButton" />
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Load Game"
             android:id="@+id/LoadGameButton"
+            android:onClick="LoadGame"
             android:layout_below="@+id/StartGameButton"
             android:layout_centerHorizontal="true"/>
 
