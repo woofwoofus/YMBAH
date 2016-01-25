@@ -25,7 +25,15 @@ public class GameActivity extends Activity {
     private SharedPreferences sharedPrefs;
     SharedPreferences.Editor editor;
 
-
+    /**
+     * Created by Jan Geestman 10375406.
+     * Main Game activity for the YMBAH app.
+     * This screen is the main screen for the game. It holds the navigation to all activities
+     * within the game as well as the button for completing the game and an options menu button.
+     * The backgrounds shows an image of an unfinished house. When enough resources are collected
+     * the user can press the 'build house' button which changes the image to that of a completed
+     * house.
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,36 +42,36 @@ public class GameActivity extends Activity {
 
         sharedPrefs = getSharedPreferences("userData", MODE_PRIVATE);
         editor = sharedPrefs.edit();
-//        editor.clear();
-//        editor.commit();
 
         Intent intent = getIntent();
+
+        // Handles the creation of the Game class for the activity. Uses a string saved in the
+        // Intent to determine the method.
         String callMethod = intent.getStringExtra("CallMethod");
-//        if (intent.getSerializableExtra("Game") == null){
-////        if (intent.getBooleanExtra("GameInProgress", false)){
-        if (callMethod.equals("NewGame")){
+        if (callMethod.equals("NewGame")){ // When the player pressed 'New Game' on the main menu
             game = new Game(intent.getStringExtra("PlayerName"), GameActivity.this, "NewGame", intent.getIntExtra("Difficulty", 1));
             System.out.println("Creating new game");
-        } else if (callMethod.equals("LoadGame")) {
+        } else if (callMethod.equals("LoadGame")) { // When the player pressed 'Load Game' on the main menu
             game = new Game(intent.getStringExtra("PlayerName"), GameActivity.this, "LoadGame", 0);
             System.out.println("Loading Existing Game");
 //        } else if (callMethod.equals("InGame")) {
 //            game = (Game) intent.getSerializableExtra("Game");
 //            System.out.println("Game passed from activity");
-        } else {
+        } else { // All other times
             game = new Game(intent.getStringExtra("PlayerName"), GameActivity.this, "LoadGame", 0);
             System.out.println("Loading Existing Game (Back Button?)");
         }
 
-        editor.putBoolean("GameInProgress", true);
+        editor.putBoolean("GameInProgress", true); // Game is created and in progress
         editor.commit();
-        if (getIntent().hasExtra("SandCD")) {
+        if (getIntent().hasExtra("SandCD")) { // If the user returns from the DigSandActivity
             System.out.println("IK BEN OP COOLDOWN");
             Bundle extras = getIntent().getExtras();
             SandCD = extras.getBoolean("SandCD", false);
             final TextView sandTimer = (TextView) findViewById(R.id.DigSandTimer);
             final Button digSandButton = (Button) findViewById(R.id.DigSandButton);
 
+            // This disables the 'Dig Sand' button until the countdown has reached zero
             if (SandCD) {
                 digSandButton.setClickable(false);
                 sandTimer.setBackgroundColor(Color.RED);
@@ -83,12 +91,15 @@ public class GameActivity extends Activity {
         }
     }
 
-
+    // This starts the DigSandActivity
     public void StartDigSand(View view) {
         Intent DigSandIntent = new Intent(this, DigSandActivity.class);
         game.saveGame();
         startActivity(DigSandIntent);
     }
+
+    // This button signals the completion of the game. If the user has collected enough resources
+    // the button can be pressed and the game is finished.
     public void BuildHouse(View view) {
         if (game.checkFinished()){
             System.out.println("Sand collected: " + game.getResource("Sand"));
@@ -100,12 +111,14 @@ public class GameActivity extends Activity {
         }
     }
 
+    // Displays the options menu fragment
     public void gOpenOptions(View view) {
         gameFragmentTransaction = gameFragmentManager.beginTransaction();
         DialogFragment optionsFragment = OptionsMenuFragment.newInstance();
         optionsFragment.show(gameFragmentTransaction, "Options");
     }
 
+    // Saves the game to the shared preferences when GameActivity stops
     @Override
     public void onStop() {
         System.out.println("Stopping GameActivity");

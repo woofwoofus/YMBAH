@@ -6,6 +6,9 @@ import java.util.HashMap;
 
 /**
  * Created by Jan Geestman 10375406.
+ * Game class for the YMBAH app.
+ * This class holds all of the information about the user's game.
+ * This is mainly the collected resources until now and an instance of the GameRules class
  */
 public class Game{
     private SharedPreferences sharedPrefs;

@@ -16,6 +16,11 @@ public class DigSandActivity extends Activity {
     private boolean SandCD = false;
     private int digCount = 0;
 
+    /**
+     * Created by Jan Geestman 10375406.
+     * DigSandActivity for the YMBAH app.
+     * 
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
