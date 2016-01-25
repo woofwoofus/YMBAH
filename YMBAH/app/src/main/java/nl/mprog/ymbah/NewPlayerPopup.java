@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * This popup allows the user to input a new name.
  *
  */
-public class NewPlayerPop extends Activity {
+public class NewPlayerPopup extends Activity {
 
     ArrayList<String> playerList;
 
@@ -28,7 +28,7 @@ public class NewPlayerPop extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.new_player_pop);
+        setContentView(R.layout.popup_new_player);
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);

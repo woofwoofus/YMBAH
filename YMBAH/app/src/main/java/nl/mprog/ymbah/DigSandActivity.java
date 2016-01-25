@@ -12,15 +12,17 @@ import java.util.Random;
 
 public class DigSandActivity extends Activity {
     private SharedPreferences sharedPrefs;
+    private SharedPreferences.Editor editor;
     private boolean SandCD = false;
     private int digCount = 0;
-    private Game gGame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dig_sand);
-        gGame = (Game)getIntent().getSerializableExtra("Game");
+        sharedPrefs = getSharedPreferences("userData", MODE_PRIVATE);
+        editor = sharedPrefs.edit();
+//        gGame = (Game)getIntent().getSerializableExtra("Game");
     }
 
     public static float randInt(int min, int max){
@@ -57,8 +59,7 @@ public class DigSandActivity extends Activity {
         sand.animate().rotationBy(1800).alpha(0).translationX(X).translationY(-Y).scaleX(0)
                 .scaleY(0).setDuration(2000).withEndAction(endAction);
 
-        sharedPrefs = getSharedPreferences("userData", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPrefs.edit();
+
         editor.putInt("Sand", sharedPrefs.getInt("Sand", 0) + 1);
         editor.commit();
         digCount++;
@@ -73,9 +74,7 @@ public class DigSandActivity extends Activity {
         Intent digSandIntent = new Intent(this, GameActivity.class);
         digSandIntent.putExtra("SandCD", true);
         digSandIntent.putExtra("CallMethod", "InGame");
-        sharedPrefs = getSharedPreferences("userData", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPrefs.edit();
-        editor.putInt("Sand", sharedPrefs.getInt("Sand",0)+digCount);
+        editor.putInt("Sand", sharedPrefs.getInt("Sand", 0) + digCount);
 //        gGame.saveGame();
 //        digSandIntent.putExtra("Game", gGame);
         startActivity(digSandIntent);

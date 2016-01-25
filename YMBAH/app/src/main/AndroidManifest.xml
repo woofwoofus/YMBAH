@@ -17,7 +17,7 @@
             android:label="@string/title_activity_game"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".NewPlayerPop"
+            android:name=".NewPlayerPopup"
             android:label="NewPlayerPopActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".MainMenuActivity">

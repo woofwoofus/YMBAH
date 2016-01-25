@@ -9,6 +9,7 @@ import java.util.HashMap;
  */
 public class Game{
     private SharedPreferences sharedPrefs;
+    private SharedPreferences.Editor editor;
     public GameRules mRules;
     private Context gContext;
     public String gUsername;
@@ -21,7 +22,7 @@ public class Game{
         gUsername = username;
         gDifficulty = gameDifficulty;
         sharedPrefs = context.getSharedPreferences("userData", gContext.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPrefs.edit();
+        editor = sharedPrefs.edit();
         if (gDifficulty == 0) {
             gDifficulty = sharedPrefs.getInt("Difficulty", 1);
         }
@@ -65,13 +66,7 @@ public class Game{
     }
 
     public boolean checkFinished() {
-        if (collectedResources.get("Sand") >= GameRules.getLimit("Sand")){
-//        sharedPrefs = gContext.getSharedPreferences("userData", gContext.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPrefs.edit();
-//        if (sharedPrefs.getInt("Sand",0) >= GameRules.getLimit("Sand")){
-
-            sharedPrefs = gContext.getSharedPreferences("userData", gContext.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPrefs.edit();
+        if (collectedResources.get("Sand") >= GameRules.getLimit("Sand")) {
             editor.putBoolean("GameInProgress", false);
             editor.commit();
             return true;
@@ -81,8 +76,6 @@ public class Game{
 
     public void saveGame() {
         System.out.println("SAVING GAME");
-        sharedPrefs = gContext.getSharedPreferences("userData", gContext.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPrefs.edit();
         for (String key:collectedResources.keySet()) {
             editor.putInt(key, collectedResources.get(key));
         }

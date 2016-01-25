@@ -22,7 +22,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+/**
+ * Created by Jan Geestman 10375406.
+ * Main menu activity for the YMBAH app.
+ * From here the user can either start a new game or load an existing one.
+ * The difficulty for the new game can be chosen using the number picker and the username is chosen
+ * with the spinner below the 'load game' button. The button on the bottom right of the screen opens
+ * the options menu
+ */
 public class MainMenuActivity extends Activity {
     private SharedPreferences sharedPrefs;
     FragmentManager mainMenuFragmentManager = getFragmentManager();
@@ -32,6 +39,7 @@ public class MainMenuActivity extends Activity {
     ArrayAdapter<String> playerSpinnerAdapter;
     private Spinner playerSpinner;
     private NumberPicker difficultyNumberPicker;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,22 +47,25 @@ public class MainMenuActivity extends Activity {
         setContentView(R.layout.activity_main_menu);
 
         sharedPrefs = getSharedPreferences("userData", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPrefs.edit();
+        editor = sharedPrefs.edit();
 
         playerSpinner = (Spinner) findViewById(R.id.PlayerSpinner);
 
         createDifficultyNumberPicker();
         createPlayerList();
         createPlayerSpinners();
-        createSpinnerListeners();
+        createSpinnerListener();
     }
 
+    // Configures the difficulty number picker
     private void createDifficultyNumberPicker() {
         difficultyNumberPicker = (NumberPicker)findViewById(R.id.DifficultyNumberPicker);
         difficultyNumberPicker.setMaxValue(3);
         difficultyNumberPicker.setMinValue(1);
 
     }
+
+    // Creates the list of known players from a file in memory. Makes the file if none exists yet.
     private void createPlayerList() {
         playerList.add("Player"); // Placeholder name for when no name is selected yet.
 
@@ -77,13 +88,15 @@ public class MainMenuActivity extends Activity {
 
         playerList.add("Create New Player"); // Final entry allows for the creation of a new player
     }
-    private void createSpinnerListeners(){
+
+    // Configures the player spinner listener
+    private void createSpinnerListener(){
         playerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.v("item", (String) parent.getItemAtPosition(position));
                 if (position == playerList.size() - 1) { // If 'Create New Player' is selected
-                    Intent getNewPlayer = new Intent(MainMenuActivity.this, NewPlayerPop.class);
+                    Intent getNewPlayer = new Intent(MainMenuActivity.this, NewPlayerPopup.class);
                     getNewPlayer.putExtra("playerList", playerList);
                     getNewPlayer.putExtra("spinnerNum", 0);
                     startActivityForResult(getNewPlayer, 1);
@@ -119,6 +132,7 @@ public class MainMenuActivity extends Activity {
         }
     }
 
+    // Updates the known players file with the newly created username
     private void updatePlayersFile(String newPlayer){
         try {
             FileOutputStream outputStream = openFileOutput("players.txt", Context.MODE_PRIVATE);
@@ -129,13 +143,14 @@ public class MainMenuActivity extends Activity {
         }
     }
 
+    // Configures the player spinners
     private void createPlayerSpinners() {
         playerSpinnerAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, playerList);
         playerSpinner.setAdapter(playerSpinnerAdapter);}
 
+    // Starts a new game with selected username and dificulty. If no player is selected, a Toast is
+    // displayed prompting the user to pick a username
     public void StartGame(View view) {
-        sharedPrefs = getSharedPreferences("userData", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPrefs.edit();
         editor.clear();
         editor.commit();
         Intent StartGameIntent = new Intent(this, GameActivity.class);
@@ -150,6 +165,7 @@ public class MainMenuActivity extends Activity {
         }
     }
 
+    // Allows a game to be restored from memory. If none is found, a Toast is displayed.
     public void LoadGame(View view) {
         Intent LoadGameIntent = new Intent(this, GameActivity.class);
         if (!(sharedPrefs.getBoolean("gameInProgress",false))){
@@ -161,6 +177,7 @@ public class MainMenuActivity extends Activity {
         }
     }
 
+    // Opens the options menu fragment.
     public void OpenOptions(View view) {
         mainMenuFragmentTransaction = mainMenuFragmentManager.beginTransaction();
         DialogFragment optionsFragment = OptionsMenuFragment.newInstance();

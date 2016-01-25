@@ -23,6 +23,7 @@ public class GameActivity extends Activity {
 
     Game game;
     private SharedPreferences sharedPrefs;
+    SharedPreferences.Editor editor;
 
 
 
@@ -32,7 +33,7 @@ public class GameActivity extends Activity {
         setContentView(R.layout.activity_game_proto);
 
         sharedPrefs = getSharedPreferences("userData", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPrefs.edit();
+        editor = sharedPrefs.edit();
 //        editor.clear();
 //        editor.commit();
 
@@ -107,7 +108,6 @@ public class GameActivity extends Activity {
 
     @Override
     public void onStop() {
-        sharedPrefs = getSharedPreferences("userData", MODE_PRIVATE);
         System.out.println("Stopping GameActivity");
         game.saveGame();
         System.out.println(sharedPrefs.getString("Username", "nothing"));
