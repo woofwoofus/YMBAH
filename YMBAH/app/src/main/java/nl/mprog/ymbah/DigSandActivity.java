@@ -27,10 +27,9 @@ public class DigSandActivity extends Activity {
         setContentView(R.layout.activity_dig_sand);
         sharedPrefs = getSharedPreferences("userData", MODE_PRIVATE);
         editor = sharedPrefs.edit();
-//        gGame = (Game)getIntent().getSerializableExtra("Game");
     }
 
-    public static float randInt(int min, int max){
+    private static float randInt(int min, int max){
         float range;
         Random rand = new Random();
         float randomFloat = rand.nextFloat();
@@ -42,7 +41,7 @@ public class DigSandActivity extends Activity {
         return randomFloat * range - Math.abs(min);
     }
 
-    public void playAnim(View view) throws InterruptedException {
+    public void playAnim(View view) {
 
         final ImageView sand = (ImageView) findViewById(R.id.Sand_Object);
         sand.setClickable(false);

@@ -14,7 +14,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="YMBAH"
+        android:text="@string/main_menu_title_textview"
         android:textSize="50sp"
         android:id="@+id/MainMenuTitleTextView"
         android:layout_alignParentTop="true"
@@ -32,7 +32,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Start Game"
+            android:text="@string/start_game_button_text"
             android:onClick="StartGame"
             android:id="@+id/StartGameButton"
             android:layout_centerHorizontal="true"/>
@@ -46,7 +46,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Load Game"
+            android:text="@string/load_game_button_text"
             android:id="@+id/LoadGameButton"
             android:onClick="LoadGame"
             android:layout_below="@+id/StartGameButton"
@@ -64,7 +64,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Options"
+        android:text="@string/options_button_text"
         android:onClick="OpenOptions"
         android:id="@+id/MainMenuOptionsButton"
         android:layout_alignParentBottom="true"

@@ -11,4 +11,21 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_test_drawer">TestDrawer</string>
+    <string name="options_title_textview">Options</string>
+    <string name="close_options_button_text">X</string>
+    <string name="dig_sand_button_text">Dig Sand</string>
+    <string name="chop_wood_button_text">Chop Wood</string>
+    <string name="main_menu_button_text">Main Menu</string>
+    <string name="options_button_text">Options</string>
+    <string name="build_house_button_text">Build House</string>
+    <string name="saw_planks_button_text">Saw Planks</string>
+    <string name="add_player_button_text">Add Player</string>
+    <string name="main_menu_title_textview">YMBAH</string>
+    <string name="start_game_button_text">Start Game</string>
+    <string name="load_game_button_text">Load Game</string>
+    <string name="sand_collected_textview">Sand Collected:</string>
+    <string name="sand_image_imageview_description">Sand Image</string>
+    <string name="sandplus_image_imageview_description">SandPlus Image</string>
+    <string name="back_button_text">Back</string>
+    <string name="new_player_edittext_hint">Username</string>
 </resources>

@@ -3,15 +3,11 @@ package nl.mprog.ymbah;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 
 /**
  * Created by Jan Geestman 10375406.
@@ -21,13 +17,12 @@ import android.widget.EditText;
 public class OptionsMenuFragment extends DialogFragment{
 
     static OptionsMenuFragment newInstance(){
-        OptionsMenuFragment oFrag = new OptionsMenuFragment();
 
 //        Bundle args = new Bundle();
 //        args.putInt("num", num);
 //        oFrag.setArguments(args);
 
-        return  oFrag;
+        return new OptionsMenuFragment();
     }
 
 
@@ -52,11 +47,6 @@ public class OptionsMenuFragment extends DialogFragment{
             }
         });
         return v;
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
     }
 
 }

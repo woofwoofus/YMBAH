@@ -13,18 +13,18 @@ import java.util.HashMap;
 public class Game{
     private SharedPreferences sharedPrefs;
     private SharedPreferences.Editor editor;
-    public GameRules mRules;
-    private Context gContext;
-    public String gUsername;
+    private String gUsername;
+    private GameRules mRules;
     private int gDifficulty;
+    private Context gContext;
 
-    public static HashMap<String,Integer> collectedResources = new HashMap<>();
+    private static HashMap<String,Integer> collectedResources = new HashMap<>();
 
     Game(String username, Context context, String gameMethod, int gameDifficulty){
         gContext = context;
         gUsername = username;
         gDifficulty = gameDifficulty;
-        sharedPrefs = context.getSharedPreferences("userData", gContext.MODE_PRIVATE);
+        sharedPrefs = gContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
         editor = sharedPrefs.edit();
         if (gDifficulty == 0) {
             gDifficulty = sharedPrefs.getInt("Difficulty", 1);
@@ -60,7 +60,7 @@ public class Game{
         }
     }
 
-    public int getResource(String rName) {
+    public int getResource(@SuppressWarnings("SameParameterValue") String rName) {
         return collectedResources.get(rName);
     }
 
@@ -69,7 +69,7 @@ public class Game{
     }
 
     public boolean checkFinished() {
-        if (collectedResources.get("Sand") >= GameRules.getLimit("Sand")) {
+        if (collectedResources.get("Sand") >= mRules.getLimit("Sand")) {
             editor.putBoolean("GameInProgress", false);
             editor.commit();
             return true;

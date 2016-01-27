@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sand Collected: "/>
+            android:text="@string/sand_collected_textview"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -24,7 +24,7 @@
 
     </LinearLayout>
     <ImageView
-        android:contentDescription="Sand Image"
+        android:contentDescription="@string/sand_image_imageview_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/sand_object"
@@ -35,7 +35,7 @@
         android:onClick="playAnim"/>
 
     <ImageView
-        android:contentDescription="SandPlus Image"
+        android:contentDescription="@string/sandplus_image_imageview_description"
         android:layout_width="35dp"
         android:layout_height="25dp"
         android:background="@drawable/sand_plus"
@@ -49,7 +49,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Back"
+        android:text="@string/back_button_text"
         android:id="@+id/BackToHouseButton"
         android:onClick="BackToHouse"
         android:layout_alignParentBottom="true"

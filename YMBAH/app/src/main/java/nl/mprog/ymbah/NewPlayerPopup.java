@@ -18,10 +18,10 @@ import java.util.ArrayList;
  */
 public class NewPlayerPopup extends Activity {
 
-    ArrayList<String> playerList;
+    private ArrayList<String> playerList;
 
-    EditText newPlayerNameView;
-    Intent mainMenuIntent;
+    private EditText newPlayerNameView;
+    private Intent mainMenuIntent;
 
 
     @Override
@@ -56,7 +56,7 @@ public class NewPlayerPopup extends Activity {
         });
     }
 
-    public void commitPlayer() {
+    private void commitPlayer() {
         final String newPlayerName = newPlayerNameView.getText().toString();
         if (playerList.contains(newPlayerName)){
             Toast.makeText(this, "This player already exists", Toast.LENGTH_SHORT).show();

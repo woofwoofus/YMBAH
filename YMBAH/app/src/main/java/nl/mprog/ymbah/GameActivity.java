@@ -16,14 +16,10 @@ import android.widget.Toast;
 
 public class GameActivity extends Activity {
 
-    private boolean SandCD = false;
+    private FragmentManager gameFragmentManager = getFragmentManager();
 
-    FragmentManager gameFragmentManager = getFragmentManager();
-    FragmentTransaction gameFragmentTransaction;
-
-    Game game;
+    private Game game;
     private SharedPreferences sharedPrefs;
-    SharedPreferences.Editor editor;
 
     /**
      * Created by Jan Geestman 10375406.
@@ -41,25 +37,26 @@ public class GameActivity extends Activity {
         setContentView(R.layout.activity_game_proto);
 
         sharedPrefs = getSharedPreferences("userData", MODE_PRIVATE);
-        editor = sharedPrefs.edit();
+        SharedPreferences.Editor editor = sharedPrefs.edit();
 
         Intent intent = getIntent();
 
         // Handles the creation of the Game class for the activity. Uses a string saved in the
         // Intent to determine the method.
         String callMethod = intent.getStringExtra("CallMethod");
-        if (callMethod.equals("NewGame")){ // When the player pressed 'New Game' on the main menu
-            game = new Game(intent.getStringExtra("PlayerName"), GameActivity.this, "NewGame", intent.getIntExtra("Difficulty", 1));
-            System.out.println("Creating new game");
-        } else if (callMethod.equals("LoadGame")) { // When the player pressed 'Load Game' on the main menu
-            game = new Game(intent.getStringExtra("PlayerName"), GameActivity.this, "LoadGame", 0);
-            System.out.println("Loading Existing Game");
-//        } else if (callMethod.equals("InGame")) {
-//            game = (Game) intent.getSerializableExtra("Game");
-//            System.out.println("Game passed from activity");
-        } else { // All other times
-            game = new Game(intent.getStringExtra("PlayerName"), GameActivity.this, "LoadGame", 0);
-            System.out.println("Loading Existing Game (Back Button?)");
+        switch (callMethod) {
+            case "NewGame":  // When the player pressed 'New Game' on the main menu
+                game = new Game(intent.getStringExtra("PlayerName"), GameActivity.this, "NewGame", intent.getIntExtra("Difficulty", 1));
+                System.out.println("Creating new game");
+                break;
+            case "LoadGame":  // When the player pressed 'Load Game' on the main menu
+                game = new Game(intent.getStringExtra("PlayerName"), GameActivity.this, "LoadGame", 0);
+                System.out.println("Loading Existing Game");
+                break;
+            default:  // All other times
+                game = new Game(intent.getStringExtra("PlayerName"), GameActivity.this, "LoadGame", 0);
+                System.out.println("Loading Existing Game (Back Button?)");
+                break;
         }
 
         editor.putBoolean("GameInProgress", true); // Game is created and in progress
@@ -67,12 +64,12 @@ public class GameActivity extends Activity {
         if (getIntent().hasExtra("SandCD")) { // If the user returns from the DigSandActivity
             System.out.println("IK BEN OP COOLDOWN");
             Bundle extras = getIntent().getExtras();
-            SandCD = extras.getBoolean("SandCD", false);
+            boolean sandCD = extras.getBoolean("SandCD", false);
             final TextView sandTimer = (TextView) findViewById(R.id.DigSandTimer);
             final Button digSandButton = (Button) findViewById(R.id.DigSandButton);
 
             // This disables the 'Dig Sand' button until the countdown has reached zero
-            if (SandCD) {
+            if (sandCD) {
                 digSandButton.setClickable(false);
                 sandTimer.setBackgroundColor(Color.RED);
                 System.out.println("SANDCD");
@@ -107,15 +104,20 @@ public class GameActivity extends Activity {
         } else {
             System.out.println("Sand collected: " + game.getResource("Sand"));
             Toast.makeText(this, "You have collected: " + game.getResource("Sand") +
-                    " out of " + game.mRules.getLimit("Sand") + "Sand", Toast.LENGTH_SHORT).show();
+                    " out of " + GameRules.getLimit("Sand") + "Sand", Toast.LENGTH_SHORT).show();
         }
     }
 
     // Displays the options menu fragment
     public void gOpenOptions(View view) {
-        gameFragmentTransaction = gameFragmentManager.beginTransaction();
+        FragmentTransaction gameFragmentTransaction = gameFragmentManager.beginTransaction();
         DialogFragment optionsFragment = OptionsMenuFragment.newInstance();
         optionsFragment.show(gameFragmentTransaction, "Options");
+    }
+
+    public void OpenMainMenu(View view) {
+        Intent mainMenuIntent = new Intent(this, MainMenuActivity.class);
+        startActivity(mainMenuIntent);
     }
 
     // Saves the game to the shared preferences when GameActivity stops

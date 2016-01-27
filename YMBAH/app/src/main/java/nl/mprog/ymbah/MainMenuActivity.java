@@ -22,6 +22,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 /**
  * Created by Jan Geestman 10375406.
  * Main menu activity for the YMBAH app.
@@ -32,11 +33,10 @@ import java.util.Scanner;
  */
 public class MainMenuActivity extends Activity {
     private SharedPreferences sharedPrefs;
-    FragmentManager mainMenuFragmentManager = getFragmentManager();
-    FragmentTransaction mainMenuFragmentTransaction;
+    private FragmentManager mainMenuFragmentManager = getFragmentManager();
 
     private static ArrayList<String> playerList = new ArrayList<>();
-    ArrayAdapter<String> playerSpinnerAdapter;
+    private ArrayAdapter<String> playerSpinnerAdapter;
     private Spinner playerSpinner;
     private NumberPicker difficultyNumberPicker;
     private SharedPreferences.Editor editor;
@@ -59,7 +59,7 @@ public class MainMenuActivity extends Activity {
 
     // Configures the difficulty number picker
     private void createDifficultyNumberPicker() {
-        difficultyNumberPicker = (NumberPicker)findViewById(R.id.DifficultyNumberPicker);
+        difficultyNumberPicker = (NumberPicker) findViewById(R.id.DifficultyNumberPicker);
         difficultyNumberPicker.setMaxValue(3);
         difficultyNumberPicker.setMinValue(1);
 
@@ -71,7 +71,7 @@ public class MainMenuActivity extends Activity {
 
         try {
             Scanner inputFile = new Scanner(this.openFileInput("players.txt"));
-            while (inputFile.hasNext()){
+            while (inputFile.hasNext()) {
                 String line = inputFile.next();
                 String[] content = line.split(",");
                 playerList.add(content[0]);
@@ -90,7 +90,7 @@ public class MainMenuActivity extends Activity {
     }
 
     // Configures the player spinner listener
-    private void createSpinnerListener(){
+    private void createSpinnerListener() {
         playerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -116,15 +116,15 @@ public class MainMenuActivity extends Activity {
      * still maintain their original functionality. (Create New Player stays at the bottom)
      */
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        if (requestCode == 1){
-            if (resultCode == 1){
-                final String newPlayerName = data.getExtras().getString("newPlayerName") ;
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if (resultCode == 1) {
+                final String newPlayerName = data.getExtras().getString("newPlayerName");
                 playerList.remove(playerList.size() - 1);
                 playerList.add(newPlayerName);
                 playerList.add("Create New Player");
                 playerSpinnerAdapter.notifyDataSetChanged();
-                playerSpinner.setSelection(playerList.size()-2);
+                playerSpinner.setSelection(playerList.size() - 2);
                 updatePlayersFile(newPlayerName);
             } else {
                 playerSpinner.setSelection(0);
@@ -133,7 +133,7 @@ public class MainMenuActivity extends Activity {
     }
 
     // Updates the known players file with the newly created username
-    private void updatePlayersFile(String newPlayer){
+    private void updatePlayersFile(String newPlayer) {
         try {
             FileOutputStream outputStream = openFileOutput("players.txt", Context.MODE_PRIVATE);
             outputStream.write(newPlayer.getBytes());
@@ -145,8 +145,9 @@ public class MainMenuActivity extends Activity {
 
     // Configures the player spinners
     private void createPlayerSpinners() {
-        playerSpinnerAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, playerList);
-        playerSpinner.setAdapter(playerSpinnerAdapter);}
+        playerSpinnerAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, playerList);
+        playerSpinner.setAdapter(playerSpinnerAdapter);
+    }
 
     // Starts a new game with selected username and dificulty. If no player is selected, a Toast is
     // displayed prompting the user to pick a username
@@ -154,8 +155,8 @@ public class MainMenuActivity extends Activity {
         editor.clear();
         editor.commit();
         Intent StartGameIntent = new Intent(this, GameActivity.class);
-        final String playerName = ((Spinner)findViewById(R.id.PlayerSpinner)).getSelectedItem().toString();
-        if (!playerName.equals("Player") || !playerName.equals("Create New Player")){
+        final String playerName = ((Spinner) findViewById(R.id.PlayerSpinner)).getSelectedItem().toString();
+        if (!playerName.equals("Player") || !playerName.equals("Create New Player")) {
             StartGameIntent.putExtra("PlayerName", playerName);
             StartGameIntent.putExtra("CallMethod", "NewGame");
             StartGameIntent.putExtra("Difficulty", difficultyNumberPicker.getValue());
@@ -168,7 +169,7 @@ public class MainMenuActivity extends Activity {
     // Allows a game to be restored from memory. If none is found, a Toast is displayed.
     public void LoadGame(View view) {
         Intent LoadGameIntent = new Intent(this, GameActivity.class);
-        if (!(sharedPrefs.getBoolean("gameInProgress",false))){
+        if (!(sharedPrefs.getBoolean("gameInProgress", false))) {
             Toast.makeText(this, "No saved game found", Toast.LENGTH_SHORT).show();
         } else {
             LoadGameIntent.putExtra("gameInProgress", true);
@@ -179,7 +180,7 @@ public class MainMenuActivity extends Activity {
 
     // Opens the options menu fragment.
     public void OpenOptions(View view) {
-        mainMenuFragmentTransaction = mainMenuFragmentManager.beginTransaction();
+        FragmentTransaction mainMenuFragmentTransaction = mainMenuFragmentManager.beginTransaction();
         DialogFragment optionsFragment = OptionsMenuFragment.newInstance();
         optionsFragment.show(mainMenuFragmentTransaction, "Options");
     }

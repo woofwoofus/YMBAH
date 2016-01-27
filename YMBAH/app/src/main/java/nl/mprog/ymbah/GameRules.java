@@ -9,7 +9,7 @@ import java.util.HashMap;
  * Game class.
  */
 public class GameRules{
-    public static HashMap<String,Integer> requiredResources = new HashMap<>();
+    private static HashMap<String,Integer> requiredResources = new HashMap<>();
 
     // Creates an instance of the GameRules class. The required amount of resources needed to
     // complete a game is multiplied by the difficulty.
@@ -33,7 +33,7 @@ public class GameRules{
     }
 
     // Returns the required amount of 'rName' resource
-    public static int getLimit(String rName) {
+    public int getLimit(String rName) {
         return requiredResources.get(rName);
     }
 
