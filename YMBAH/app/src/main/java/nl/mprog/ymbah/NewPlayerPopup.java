@@ -36,7 +36,7 @@ public class NewPlayerPopup extends Activity {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        getWindow().setLayout((int) (width*.8),(int) (height*.3));
+        getWindow().setLayout((int) (width*.8),(int) (height*.3)); // Resizes the popup
 
         newPlayerNameView = (EditText) findViewById(R.id.newPlayerEditText);
         mainMenuIntent = getIntent();
@@ -47,7 +47,7 @@ public class NewPlayerPopup extends Activity {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_DOWN) {
                     if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                        commitPlayer();
+                        commitPlayer(); // commits player when enter button is pressed
                         return true;
                     }
                 }
@@ -56,10 +56,14 @@ public class NewPlayerPopup extends Activity {
         });
     }
 
+    // Checks if the user entered a name that already exists or is empty. Then returns the result to
+    // the main menu
     private void commitPlayer() {
         final String newPlayerName = newPlayerNameView.getText().toString();
         if (playerList.contains(newPlayerName)){
             Toast.makeText(this, "This player already exists", Toast.LENGTH_SHORT).show();
+        } else if(newPlayerName.equals("")){
+            Toast.makeText(this, "Please enter a name", Toast.LENGTH_SHORT).show();
         } else {
             mainMenuIntent.putExtra("newPlayerName",newPlayerName);
             setResult(1, mainMenuIntent);
@@ -67,6 +71,7 @@ public class NewPlayerPopup extends Activity {
         }
     }
 
+    // Calls the private function commitPlayer when the commit button is pressed
     public void commitPlayer(View view) {
         commitPlayer();
     }

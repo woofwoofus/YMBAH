@@ -29,19 +29,14 @@ public class Game{
         if (gDifficulty == 0) {
             gDifficulty = sharedPrefs.getInt("Difficulty", 1);
         }
-        mRules = new GameRules(gDifficulty);
-
+        mRules = new GameRules(gDifficulty); // Creates an instance of GameRules with difficulty gDifficulty
 
         fillMap(gameMethod);
 
-        for (String key:collectedResources.keySet()) {
-            editor.putInt(key,collectedResources.get(key));
-        }
-        editor.putBoolean("GameInProgress", true);
-        editor.commit();
         saveGame();
     }
 
+    // Fills the hashmap of all resources collected from memory or with 0 values
     private void fillMap(String gameMethod) {
         if (gameMethod.equals("LoadGame")){
             collectedResources.put("Sand", sharedPrefs.getInt("Sand", 0));
@@ -60,14 +55,16 @@ public class Game{
         }
     }
 
-    public int getResource(@SuppressWarnings("SameParameterValue") String rName) {
+    // Returns the amount of resource rName the user has collected
+    public int getResource(String rName) {
         return collectedResources.get(rName);
     }
 
-    public void setResource(String rName, int num) {
-        collectedResources.put(rName, num);
-    }
+//    public void setResource(String rName, int num) {
+//        collectedResources.put(rName, num);
+//    }
 
+    // Checks if the user has collected enough resources
     public boolean checkFinished() {
         if (collectedResources.get("Sand") >= mRules.getLimit("Sand")) {
             editor.putBoolean("GameInProgress", false);
@@ -77,6 +74,7 @@ public class Game{
         return false;
     }
 
+    // Saves the game in progress to the shared preferences
     public void saveGame() {
         System.out.println("SAVING GAME");
         for (String key:collectedResources.keySet()) {
@@ -86,5 +84,10 @@ public class Game{
         editor.putInt("Difficulty", gDifficulty);
         editor.putBoolean("GameInProgress", true);
         editor.commit();
+    }
+
+    // Returns the limit of the resource rName needed to complete the game
+    public int getLimit(String rName) {
+        return mRules.getLimit(rName);
     }
 }

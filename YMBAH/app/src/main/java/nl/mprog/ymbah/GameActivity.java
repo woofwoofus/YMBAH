@@ -104,7 +104,7 @@ public class GameActivity extends Activity {
         } else {
             System.out.println("Sand collected: " + game.getResource("Sand"));
             Toast.makeText(this, "You have collected: " + game.getResource("Sand") +
-                    " out of " + GameRules.getLimit("Sand") + "Sand", Toast.LENGTH_SHORT).show();
+                    " out of " + game.getLimit("Sand") + "Sand", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -115,6 +115,7 @@ public class GameActivity extends Activity {
         optionsFragment.show(gameFragmentTransaction, "Options");
     }
 
+    // Opens the main menu
     public void OpenMainMenu(View view) {
         Intent mainMenuIntent = new Intent(this, MainMenuActivity.class);
         startActivity(mainMenuIntent);

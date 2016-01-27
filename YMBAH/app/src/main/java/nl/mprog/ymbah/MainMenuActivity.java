@@ -29,7 +29,10 @@ import java.util.Scanner;
  * From here the user can either start a new game or load an existing one.
  * The difficulty for the new game can be chosen using the number picker and the username is chosen
  * with the spinner below the 'load game' button. The button on the bottom right of the screen opens
- * the options menu
+ * the options menu.
+ * The playerlist is not persistent through game resets because the code that saved them to memory
+ * generated too many errors
+ *
  */
 public class MainMenuActivity extends Activity {
     private SharedPreferences sharedPrefs;
@@ -78,9 +81,11 @@ public class MainMenuActivity extends Activity {
             }
             inputFile.close();
         } catch (FileNotFoundException e) {
+            System.out.println("File not found");
             File f = new File(getFilesDir(), "players.txt");
             try {
                 f.createNewFile();
+                System.out.println("Created players.txt");
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
@@ -139,6 +144,7 @@ public class MainMenuActivity extends Activity {
             outputStream.write(newPlayer.getBytes());
             outputStream.close();
         } catch (Exception e) {
+            System.out.println("No players.txt found");
             e.printStackTrace();
         }
     }

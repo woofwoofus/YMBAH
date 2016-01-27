@@ -19,7 +19,11 @@ public class DigSandActivity extends Activity {
     /**
      * Created by Jan Geestman 10375406.
      * DigSandActivity for the YMBAH app.
-     * 
+     * This is a mini-game activity that allows the user to collect sand for building their house.
+     * The sand is collected by clicking the image of the pile of sand in the acitvity. It then moves
+     * to a new location and the user can press it again. This can be done a maximum of three times,
+     * after which the sand disappears. By pressing the "back" button the user is brought back to
+     * the main game screen and will have to wait for a countdown to expire to collect more sand.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,7 @@ public class DigSandActivity extends Activity {
         editor = sharedPrefs.edit();
     }
 
+    // Provides a random int between 'min' and 'max'
     private static float randInt(int min, int max){
         float range;
         Random rand = new Random();
@@ -41,6 +46,8 @@ public class DigSandActivity extends Activity {
         return randomFloat * range - Math.abs(min);
     }
 
+    // Animates the sand image to spin around, disappear and then reappear at a different location.
+    // When the user has done this 3 times the sand disappears for good.
     public void playAnim(View view) {
 
         final ImageView sand = (ImageView) findViewById(R.id.Sand_Object);
@@ -74,13 +81,12 @@ public class DigSandActivity extends Activity {
         }
     }
 
+    // Opens the Game activity and notifies it that the Dig Sand activity must go on a cooldown.
     public void BackToHouse(View view) {
         Intent digSandIntent = new Intent(this, GameActivity.class);
         digSandIntent.putExtra("SandCD", true);
         digSandIntent.putExtra("CallMethod", "InGame");
         editor.putInt("Sand", sharedPrefs.getInt("Sand", 0) + digCount);
-//        gGame.saveGame();
-//        digSandIntent.putExtra("Game", gGame);
         startActivity(digSandIntent);
     }
 }
