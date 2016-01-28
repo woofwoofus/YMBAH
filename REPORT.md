@@ -8,6 +8,8 @@ You Must Build A House (YMBAH) is a game that features a mini game. The overall 
 
 * More than 0 different mini-games that test your ability to click on things!
 * Stunning(ly bad) Graphics!
+* A main menu!
+* No Ads!
 
 ##Classes and Methods
 
@@ -46,4 +48,4 @@ This week was the final sprint towards complete functionality. I have to say tha
 
 ### Final Product
 
-Spent most of the last week commenting, bugfixing and writing the report. Got some last minute stuff working by doing inter-activity communication via the Shared Preferences again. It won't win any prizes but it works.
+Spent most of the last week commenting, bugfixing and writing the report. Got some last minute stuff working by doing inter-activity communication via the Shared Preferences again. It won't win any prizes but it works. I'm not completely satisfied with the final product. I feel like even though I missed a week of work I could have done better. The second week was poorly planned and caused even more delay in the important parts of the product. I was too focussed on doing complicated new things. I do feel like I learned a lot about Java and android coding during this project and the self-reflection will help a lot for future projects.
