@@ -27,3 +27,19 @@ Worked on the communication between activities. Most of it is stored in the Shar
 #Day 8
 
 User can now enter a username. Not yet linked to saved game functionality but that will have to wait for now. Noticed a bug with the DigSand minigame that I needed to fix where the sand flew off screen. Back to working order now. Major issue with the Game.class. It was being created every time GameActivity was run. Made it serializable. Not sure what that means exactly but I can now pass it between activities without much problem so it suits my needs. I have also been migrating away from the Shared Preferences as this caused more trouble than it was worth. The fact that it's pretty much permanent means I have to clear it frequently. Now that the Game class can be passed along I don't need it as much anymore. Cleaned up a lot of communication stuff as well: more intent based. Still need to implement proper saved games. I'm thinking of a way to save it in a separate file but I don't have a concrete plan for it yet. Will think about it tonight and implement it tomorrow morning before the presentations.
+
+#Day 9
+
+Started cleaning code and fixing bugs. Changed the way the game object is constructed so it remains consistent between activities. More Shared Preferences I'm afraid. 
+
+#Day 10 
+
+Started work on the report and wrote comments. Did more bugfixing.
+
+#Day 11 
+
+Comments, debugging and more.
+
+#Day 12
+
+Finished the report and comments. Did one final adaptation to the code that cleans the userlist between games so it doesn't fill with duplicates.

@@ -34,7 +34,7 @@ public class GameActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game_proto);
+        setContentView(R.layout.activity_game);
 
         sharedPrefs = getSharedPreferences("userData", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefs.edit();

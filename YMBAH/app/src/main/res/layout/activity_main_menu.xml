@@ -41,8 +41,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/DifficultyNumberPicker"
-            android:layout_toEndOf="@+id/StartGameButton" />
-
+            android:layout_below="@+id/PlayerSpinner"
+            android:layout_centerHorizontal="true"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
