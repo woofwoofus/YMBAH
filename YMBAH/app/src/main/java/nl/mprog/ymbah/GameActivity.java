@@ -47,22 +47,18 @@ public class GameActivity extends Activity {
         switch (callMethod) {
             case "NewGame":  // When the player pressed 'New Game' on the main menu
                 game = new Game(intent.getStringExtra("PlayerName"), GameActivity.this, "NewGame", intent.getIntExtra("Difficulty", 1));
-                System.out.println("Creating new game");
                 break;
             case "LoadGame":  // When the player pressed 'Load Game' on the main menu
                 game = new Game(intent.getStringExtra("PlayerName"), GameActivity.this, "LoadGame", 0);
-                System.out.println("Loading Existing Game");
                 break;
             default:  // All other times
                 game = new Game(intent.getStringExtra("PlayerName"), GameActivity.this, "LoadGame", 0);
-                System.out.println("Loading Existing Game (Back Button?)");
                 break;
         }
 
         editor.putBoolean("GameInProgress", true); // Game is created and in progress
         editor.commit();
         if (getIntent().hasExtra("SandCD")) { // If the user returns from the DigSandActivity
-            System.out.println("IK BEN OP COOLDOWN");
             Bundle extras = getIntent().getExtras();
             boolean sandCD = extras.getBoolean("SandCD", false);
             final TextView sandTimer = (TextView) findViewById(R.id.DigSandTimer);
@@ -72,7 +68,6 @@ public class GameActivity extends Activity {
             if (sandCD) {
                 digSandButton.setClickable(false);
                 sandTimer.setBackgroundColor(Color.RED);
-                System.out.println("SANDCD");
                 new CountDownTimer(10000, 1000) {
                     public void onTick(long m) {
                         sandTimer.setText("" + m/1000);
@@ -99,10 +94,8 @@ public class GameActivity extends Activity {
     // the button can be pressed and the game is finished.
     public void BuildHouse(View view) {
         if (game.checkFinished()){
-            System.out.println("Sand collected: " + game.getResource("Sand"));
-            findViewById(R.id.GameBackground).setBackgroundResource(R.drawable.finished);
+            findViewById(R.id.GameBackground).setBackgroundResource(R.drawable.sand_castle);
         } else {
-            System.out.println("Sand collected: " + game.getResource("Sand"));
             Toast.makeText(this, "You have collected: " + game.getResource("Sand") +
                     " out of " + game.getLimit("Sand") + "Sand", Toast.LENGTH_SHORT).show();
         }
@@ -124,9 +117,13 @@ public class GameActivity extends Activity {
     // Saves the game to the shared preferences when GameActivity stops
     @Override
     public void onStop() {
-        System.out.println("Stopping GameActivity");
         game.saveGame();
-        System.out.println(sharedPrefs.getString("Username", "nothing"));
         super.onStop();
+    }
+
+    // Catches the Back button press to return to the main menu rather than the previous activity
+    @Override
+    public void onBackPressed() {
+        OpenMainMenu((Button)findViewById(R.id.OpenMainMenu));
     }
 }

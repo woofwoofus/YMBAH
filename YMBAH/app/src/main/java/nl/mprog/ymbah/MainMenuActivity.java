@@ -53,6 +53,7 @@ public class MainMenuActivity extends Activity {
         editor = sharedPrefs.edit();
 
         playerSpinner = (Spinner) findViewById(R.id.PlayerSpinner);
+        playerList.clear();
 
         createDifficultyNumberPicker();
         createPlayerList();
@@ -81,11 +82,9 @@ public class MainMenuActivity extends Activity {
             }
             inputFile.close();
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
             File f = new File(getFilesDir(), "players.txt");
             try {
                 f.createNewFile();
-                System.out.println("Created players.txt");
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
@@ -144,7 +143,6 @@ public class MainMenuActivity extends Activity {
             outputStream.write(newPlayer.getBytes());
             outputStream.close();
         } catch (Exception e) {
-            System.out.println("No players.txt found");
             e.printStackTrace();
         }
     }

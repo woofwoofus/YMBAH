@@ -9,7 +9,7 @@ import java.util.HashMap;
  * Game class.
  */
 public class GameRules{
-    private static HashMap<String,Integer> requiredResources = new HashMap<>();
+    private HashMap<String,Integer> requiredResources = new HashMap<>();
 
     // Creates an instance of the GameRules class. The required amount of resources needed to
     // complete a game is multiplied by the difficulty.

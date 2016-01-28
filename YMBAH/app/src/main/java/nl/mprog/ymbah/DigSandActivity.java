@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -55,7 +56,6 @@ public class DigSandActivity extends Activity {
 
         float X = randInt(-500, 500);
         float Y = randInt(300, 800);
-        System.out.println("X = " + X + "    Y = " + Y);
 
         Runnable endAction = new Runnable() {
             public void run() {
@@ -88,5 +88,11 @@ public class DigSandActivity extends Activity {
         digSandIntent.putExtra("CallMethod", "InGame");
         editor.putInt("Sand", sharedPrefs.getInt("Sand", 0) + digCount);
         startActivity(digSandIntent);
+    }
+
+    // Catches the Back button press to return to the main game screen via the preferred method
+    @Override
+    public void onBackPressed(){
+        BackToHouse((Button)findViewById(R.id.BackToHouseButton));
     }
 }

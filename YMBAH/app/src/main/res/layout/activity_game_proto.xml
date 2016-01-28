@@ -60,6 +60,7 @@
         android:layout_height="wrap_content"
         android:text="@string/main_menu_button_text"
         android:onClick="OpenMainMenu"
+        android:id="@+id/OpenMainMenu"
         android:layout_alignParentTop="true"/>
 
 

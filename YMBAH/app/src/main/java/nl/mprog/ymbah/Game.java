@@ -18,7 +18,7 @@ public class Game{
     private int gDifficulty;
     private Context gContext;
 
-    private static HashMap<String,Integer> collectedResources = new HashMap<>();
+    private HashMap<String,Integer> collectedResources = new HashMap<>();
 
     Game(String username, Context context, String gameMethod, int gameDifficulty){
         gContext = context;
@@ -76,7 +76,6 @@ public class Game{
 
     // Saves the game in progress to the shared preferences
     public void saveGame() {
-        System.out.println("SAVING GAME");
         for (String key:collectedResources.keySet()) {
             editor.putInt(key, collectedResources.get(key));
         }
